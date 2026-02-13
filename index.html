@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loving Me? ❤️</title>
+    <title></title>
     <style>
         body {
             margin: 0;
@@ -20,17 +20,26 @@
         }
 
         .instruction {
-            position: absolute;
-            bottom: 50px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #a23453;
-            font-size: 0.75rem;
-            z-index: 1000; 
-            pointer-events: none;
-            letter-spacing: 0.3px;
-        }
+        position: absolute;
+        /* ปรับจาก 12dvh เป็น 20% หรือ 150px เพื่อให้ลอยพ้นขอบล่างขึ้นมา */
+        bottom: 20%; 
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #800f2f;
+        font-size: 0.75rem;
+        z-index: 1000;
+        pointer-events: none;
+        
+        /* เพิ่มระยะเผื่อสำหรับ Safe Area ของ iPhone โดยเฉพาะ */
+        padding-bottom: env(safe-area-inset-bottom);
+        
+        /* เพิ่มความเน้นให้ตัวหนังสือลอยเด่นขึ้นมาหน่อย */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
 
         #percentText {
             font-size: 1.0rem; 
