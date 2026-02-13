@@ -1,129 +1,165 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <meta name="theme-color" content="#ffafcc">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <title>For My Piang-Kwan 💖</title>
-    
+    <title>Loving Me? ❤️</title>
     <style>
-        :root {
-            --bg-color: #fff0f3;
-            --card-bg: #ffffff;
-            --primary-pink: #ffafcc;
-            --text-main: #594d5b;
-            --heart-red: #fb6f92;
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* ลบแถบสีเวลาแตะปุ่มบน iOS */
-        }
-
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            background-color: #ffe5ec;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอไปมาบนมือถือ */
-        }
-
-        .container {
-            width: 90%;
-            max-width: 360px;
-            background: var(--card-bg);
-            border-radius: 30px;
-            padding: 50px 50px;
-            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.15);
-            text-align: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: -apple-system, sans-serif;
             position: relative;
         }
 
-        .photo-frame {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px;
-            border: 5px solid var(--primary-pink);
+        .instruction {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #a23453;
+            font-size: 0.75rem;
+            z-index: 1000; 
+            pointer-events: none;
+            letter-spacing: 0.3px;
+        }
+
+        #percentText {
+            font-size: 1.0rem; 
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        #hitBtn {
+            background-color: #fb6f92;
+            color: white;
+            border: none;
             border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        h1 {
-            color: var(--heart-red);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: var(--text-main);
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .heart-icon {
-            font-size: 40px;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
-            display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.4);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            outline: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 10;
         }
 
-        .heart-icon:active {
-            transform: scale(1.5);
+        /* Visual Haptic Effect */
+        .haptic-shake {
+            animation: haptic-tap 0.08s ease-out;
         }
 
-        /* Animation หัวใจเต้น */
-        .pulse {
-            animation: heartbeat 1.5s infinite;
+        @keyframes haptic-tap {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(0.92); }
+            100% { transform: translate(-50%, -50%) scale(1); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
+        .btn-text {
+            position: absolute;
+            font-size: 16px;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 11;
         }
     </style>
 </head>
-<body>
 
-    <div class="container">
-        <div class="photo-frame">
-            <img src="your-photo.jpg" alt="Memory">
-        </div>
-        
-        <div class="heart-icon pulse">❤️</div>
-        
-        <h1>Happy Valentine's Day</h1>
-        <p>ถึง... คุณเพียงขวัญ ✨</p>
-        <p>วันนี้อยากบอกว่าขอบคุณที่อยู่ด้วยกันนะ<br>
-           ขอให้ทุกวันของเราสดใสเหมือนวันนี้เลย!</p>
-           
-        <button id="secretBtn" style="margin-top: 20px; background: none; border: 1px solid var(--primary-pink); color: var(--heart-red); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem;">
-            Click for a surprise
-        </button>
+<body>
+    <button id="hitBtn">
+        <span class="btn-text">HIT ME</span>
+    </button>
+
+    <div class="instruction">
+        <span id="percentText">percent of you loving me: 0%</span>
     </div>
 
     <script>
-        // ใส่ลูกเล่นนิดหน่อยตามสไตล์ ComSci
-        document.getElementById('secretBtn').addEventListener('click', function() {
-            alert('รัก Piang-Kwan ที่สุดในโลกเลยค่ะ! ❤️');
-            console.log("Success: Love transmitted to Piang-Kwan's heart.");
+        const btn = document.getElementById('hitBtn');
+        const percentDisplay = document.getElementById('percentText');
+
+        const baseSize = 100;
+        let currentSize = baseSize;
+        
+        // --- ลอจิกคำนวณค่า 100% ที่แม่นยำ ---
+        // ใช้แนวทะแยงของจอ (Diagonal) เป็นเกณฑ์ 100% 
+        // เมื่อเส้นผ่านศูนย์กลางปุ่ม = แนวทะแยงจอ สีชมพูจะกลบทุกมุมพอดีเป๊ะ
+        const getPerfectFullSize = () => {
+            return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2));
+        };
+        
+        let maxSize = getPerfectFullSize();
+        const growAmount = (maxSize - baseSize) / 25; // กด 25 ครั้งถึง 100%
+        const shrinkAmount = 2.0; 
+
+        function updateDisplay() {
+            if (currentSize < baseSize) currentSize = baseSize;
+
+            btn.style.width = currentSize + 'px';
+            btn.style.height = currentSize + 'px';
+
+            // คำนวณเปอร์เซ็นต์สัมพันธ์กับขนาดจริง
+            let percent = Math.floor(((currentSize - baseSize) / (maxSize - baseSize)) * 100);
+            
+            if (percent < 0) percent = 0;
+            if (percent > 100) percent = 100;
+            
+            percentDisplay.innerText = `percent of you loving me: ${percent}%`;
+
+            // เมื่อถึง 100% (ปุ่มกลบมิดมุมจอพอดี) ให้เปลี่ยนหน้า
+            if (percent >= 100) {
+                window.location.href = 'card.html';
+            }
+        }
+
+        function handleInput(e) {
+            if (e && e.cancelable) e.preventDefault();
+            currentSize += growAmount;
+            updateDisplay();
+
+            if (navigator.vibrate) navigator.vibrate(10);
+            btn.classList.remove('haptic-shake');
+            void btn.offsetWidth;
+            btn.classList.add('haptic-shake');
+        }
+
+        // ระบบปุ่มหดตัว
+        setInterval(() => {
+            if (currentSize > baseSize) {
+                currentSize -= shrinkAmount;
+                updateDisplay();
+            }
+        }, 16);
+
+        btn.addEventListener('touchstart', handleInput, { passive: false });
+        btn.addEventListener('mousedown', (e) => { if (e.button === 0) handleInput(e); });
+        
+        window.addEventListener('touchmove', (e) => {
+            if (e.target === btn) e.preventDefault();
+        }, { passive: false });
+
+        // อัปเดต maxSize ถ้ามีการหมุนจอ
+        window.addEventListener('resize', () => {
+            maxSize = getPerfectFullSize();
         });
+
     </script>
 </body>
 </html>
