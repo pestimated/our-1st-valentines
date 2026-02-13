@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="theme-color" content="#ffafcc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>For My Piang-Kwan 💖</title>
+    
+    <style>
+        :root {
+            --bg-color: #fff0f3;
+            --card-bg: #ffffff;
+            --primary-pink: #ffafcc;
+            --text-main: #594d5b;
+            --heart-red: #fb6f92;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* ลบแถบสีเวลาแตะปุ่มบน iOS */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอไปมาบนมือถือ */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 360px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 50px 50px;
+            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.15);
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-frame {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+            border: 5px solid var(--primary-pink);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--heart-red);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .heart-icon {
+            font-size: 40px;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .heart-icon:active {
+            transform: scale(1.5);
+        }
+
+        /* Animation หัวใจเต้น */
+        .pulse {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="photo-frame">
+            <img src="your-photo.jpg" alt="Memory">
+        </div>
+        
+        <div class="heart-icon pulse">❤️</div>
+        
+        <h1>Happy Valentine's Day</h1>
+        <p>ถึง... คุณเพียงขวัญ ✨</p>
+        <p>วันนี้อยากบอกว่าขอบคุณที่อยู่ด้วยกันนะ<br>
+           ขอให้ทุกวันของเราสดใสเหมือนวันนี้เลย!</p>
+           
+        <button id="secretBtn" style="margin-top: 20px; background: none; border: 1px solid var(--primary-pink); color: var(--heart-red); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem;">
+            Click for a surprise
+        </button>
+    </div>
+
+    <script>
+        // ใส่ลูกเล่นนิดหน่อยตามสไตล์ ComSci
+        document.getElementById('secretBtn').addEventListener('click', function() {
+            alert('รัก Piang-Kwan ที่สุดในโลกเลยค่ะ! ❤️');
+            console.log("Success: Love transmitted to Piang-Kwan's heart.");
+        });
+    </script>
+</body>
+</html>
