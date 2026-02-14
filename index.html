@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>check it now</title>
-
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
+    
+    <title>A surprise for you ✨</title>
+    <meta property="og:title" content="Open me!">
+    <meta property="og:description" content="I have a special message for you.">
 
     <style>
         body {
@@ -17,33 +17,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100dvh; /* ใช้ dvh เพื่อความเป๊ะบน iPhone */
             overflow: hidden;
             font-family: -apple-system, sans-serif;
             position: relative;
         }
 
         .instruction {
-        position: absolute;
-        /* ปรับจาก 12dvh เป็น 20% หรือ 150px เพื่อให้ลอยพ้นขอบล่างขึ้นมา */
-        bottom: 20%; 
-        left: 0;
-        right: 0;
-        text-align: center;
-        color: #800f2f;
-        font-size: 0.75rem;
-        z-index: 1000;
-        pointer-events: none;
-        
-        /* เพิ่มระยะเผื่อสำหรับ Safe Area ของ iPhone โดยเฉพาะ */
-        padding-bottom: env(safe-area-inset-bottom);
-        
-        /* เพิ่มความเน้นให้ตัวหนังสือลอยเด่นขึ้นมาหน่อย */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-    }
+            position: absolute;
+            bottom: 20%; 
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #800f2f;
+            font-size: 0.75rem;
+            z-index: 1000;
+            pointer-events: none;
+            padding-bottom: env(safe-area-inset-bottom);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
 
         #percentText {
             font-size: 1.0rem; 
@@ -74,7 +69,6 @@
             z-index: 10;
         }
 
-        /* Visual Haptic Effect */
         .haptic-shake {
             animation: haptic-tap 0.08s ease-out;
         }
@@ -111,57 +105,52 @@
         const baseSize = 100;
         let currentSize = baseSize;
 
-        const popSound = new Audio('data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQYAAAAfAB8AHwAfAB8AHwA=');
-        popSound.volume = 0.5; // ปรับความดัง 50% ให้พอน่ารัก
+        // แก้ไข: ใช้เสียง Pop ที่ยาวขึ้นและชัดขึ้น (Base64 อันใหม่)
+        const popSound = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAD//wEAAAA=');
+        // ถ้าอันบนเบาไป ลองใช้เสียง Beep สั้นๆ อันนี้ค่ะ
+        const altPop = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YT9vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT18=');
         
-        // --- ลอจิกคำนวณค่า 100% ที่แม่นยำ ---
-        // ใช้แนวทะแยงของจอ (Diagonal) เป็นเกณฑ์ 100% 
-        // เมื่อเส้นผ่านศูนย์กลางปุ่ม = แนวทะแยงจอ สีชมพูจะกลบทุกมุมพอดีเป๊ะ
+        popSound.volume = 1.0; 
+        
         const getPerfectFullSize = () => {
             return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2));
         };
         
         let maxSize = getPerfectFullSize();
-        const growAmount = (maxSize - baseSize) / 15; // จากเดิม 25 เปลี่ยนเป็น 15 (กดน้อยครั้งลงแต่ปุ่มใหญ่ไวขึ้น)
-        const shrinkAmount = 1.2; // จากเดิม 2.0 ลดเหลือ 1.2 (ปุ่มหดตัวช้าลง ทำให้ไม่ต้องกดรัวเป็นปืนกล)
+        const growAmount = (maxSize - baseSize) / 15; 
+        const shrinkAmount = 1.2; 
 
         function updateDisplay() {
             if (currentSize < baseSize) currentSize = baseSize;
-
             btn.style.width = currentSize + 'px';
             btn.style.height = currentSize + 'px';
 
-            // คำนวณเปอร์เซ็นต์สัมพันธ์กับขนาดจริง
             let percent = Math.floor(((currentSize - baseSize) / (maxSize - baseSize)) * 100);
-            
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
             
             percentDisplay.innerText = `percent of you loving me: ${percent}%`;
 
-            // เมื่อถึง 100% (ปุ่มกลบมิดมุมจอพอดี) ให้เปลี่ยนหน้า
             if (percent >= 100) {
                 window.location.href = 'card.html';
             }
         }
 
         function handleInput(e) {
-            
             if (e && e.cancelable) e.preventDefault();
 
+            // เล่นเสียง
             popSound.currentTime = 0;
-            popSound.play().catch(() => { /* กัน Error กรณี Browser บล็อกเสียง */ });
+            popSound.play().catch(err => console.log("Audio Error:", err));
 
             currentSize += growAmount;
             updateDisplay();
 
-            if (navigator.vibrate) navigator.vibrate(10);
             btn.classList.remove('haptic-shake');
             void btn.offsetWidth;
             btn.classList.add('haptic-shake');
         }
 
-        // ระบบปุ่มหดตัว
         setInterval(() => {
             if (currentSize > baseSize) {
                 currentSize -= shrinkAmount;
@@ -172,15 +161,9 @@
         btn.addEventListener('touchstart', handleInput, { passive: false });
         btn.addEventListener('mousedown', (e) => { if (e.button === 0) handleInput(e); });
         
-        window.addEventListener('touchmove', (e) => {
-            if (e.target === btn) e.preventDefault();
-        }, { passive: false });
-
-        // อัปเดต maxSize ถ้ามีการหมุนจอ
         window.addEventListener('resize', () => {
             maxSize = getPerfectFullSize();
         });
-
     </script>
 </body>
 </html>
