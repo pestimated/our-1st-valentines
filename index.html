@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>check it now</title>
 
     <meta property="og:title" content=">
@@ -119,8 +119,8 @@
         };
         
         let maxSize = getPerfectFullSize();
-        const growAmount = (maxSize - baseSize) / 25; // กด 25 ครั้งถึง 100%
-        const shrinkAmount = 2.0; 
+        const growAmount = (maxSize - baseSize) / 15; // จากเดิม 25 เปลี่ยนเป็น 15 (กดน้อยครั้งลงแต่ปุ่มใหญ่ไวขึ้น)
+        const shrinkAmount = 1.2; // จากเดิม 2.0 ลดเหลือ 1.2 (ปุ่มหดตัวช้าลง ทำให้ไม่ต้องกดรัวเป็นปืนกล)
 
         function updateDisplay() {
             if (currentSize < baseSize) currentSize = baseSize;
