@@ -8,7 +8,7 @@
 
     <title></title>
     <meta property="og:title" content="open me please">
-    <meta property="og:description" content="">
+    <meta property="og:description" content="tood tood....">
 
     <style>
         body {
@@ -51,24 +51,27 @@
 
         #hitBtn {
             background-color: #fb6f92;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.4);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            outline: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-            z-index: 10;
+        color: white;
+        border: none;
+        /* เปลี่ยนจาก 50% เป็น 100px เพื่อให้เป็นทรงมนยาว (Pill Shape) */
+        border-radius: 100px; 
+        /* เริ่มต้นเป็นแนวนอน */
+        width: 220px; 
+        height: 70px;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(251, 111, 146, 0.4);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        z-index: 10;
+        transition: border-radius 0.3s; /* ให้ค่อยๆ กลายเป็นสี่เหลี่ยมตอนเต็มจอ */
         }
 
         .haptic-shake {
@@ -91,21 +94,22 @@
 
         .btn-text {
             position: absolute;
-            font-size: 16px;
-            font-weight: bold;
-            pointer-events: none;
-            z-index: 11;
+        font-size: 16px; /* ปรับขนาดตัวอักษรให้นิดนึง */
+        font-weight: bold;
+        pointer-events: none;
+        z-index: 11;
+        white-space: nowrap; /* กันตัวหนังสือตกบรรทัด */
         }
     </style>
 </head>
 
 <body>
     <button id="hitBtn">
-        <span class="btn-text">HIT ME</span>
+        <span class="btn-text">DO NOT HIT ME</span>
     </button>
 
     <div class="instruction">
-        <span id="percentText">percent of you loving me: 0%</span>
+        <span id="percentText">how much the love you give me 0%</span>
     </div>
 
     <script>
@@ -115,31 +119,50 @@
         const baseSize = 100;
         let currentSize = baseSize;
 
-        // --- ลอจิกการคำนวณ ---
+        // ระบบเสียงและ AudioContext (ที่คุณใส่ไว้ล่าสุด)
+        // ... (ยกมาใส่ตรงนี้ได้เลยค่ะ) ...
+
         const getPerfectFullSize = () => {
             return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2));
         };
+        
+        // --- แก้ไขจุดนี้ค่ะ ---
+        // เนื่องจากปุ่มเราสูงแค่ 0.7 ของ currentSize 
+        // เราจึงต้องหารด้วย 0.7 เพื่อให้ตอนถึง 100% ความสูงปุ่มจะเท่ากับแนวทะแยงจอพอดี
+        let maxSize = getPerfectFullSize() / 0.7; 
 
-        let maxSize = getPerfectFullSize();
-        const growAmount = (maxSize - baseSize) / 15;
-        const shrinkAmount = 1.2;
+        // ปรับ growAmount ให้เหมาะสม (ถ้าอยากให้กดประมาณ 18-20 ครั้งถึงเต็ม)
+        const growAmount = (maxSize - baseSize) / 18; 
+        const shrinkAmount = 1.3; 
+        // ---------------------
 
         function updateDisplay() {
             if (currentSize < baseSize) currentSize = baseSize;
-            btn.style.width = currentSize + 'px';
-            btn.style.height = currentSize + 'px';
 
+            // ปุ่มแนวนอน: กว้าง 2.2 เท่า, สูง 0.7 เท่า
+            btn.style.width = (currentSize * 2.0) + 'px';
+            btn.style.height = (currentSize * 0.6) + 'px';
+
+            // ปรับความมน: พอกลบจอไปเกินครึ่ง ให้เริ่มเปลี่ยนเป็นสี่เหลี่ยมเพื่อปิดมุมจอ
+            if (currentSize > (maxSize * 0.6)) {
+                btn.style.borderRadius = "10px";
+            } else {
+                btn.style.borderRadius = "100px";
+            }
+
+            // คำนวณเปอร์เซ็นต์ (คราวนี้จะสัมพันธ์กับความสูงที่ต้องกลบจอพอดีเป๊ะ)
             let percent = Math.floor(((currentSize - baseSize) / (maxSize - baseSize)) * 100);
+            
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
-
+            
             percentDisplay.innerText = `percent of you loving me: ${percent}%`;
 
             if (percent >= 100) {
                 window.location.href = 'card.html';
             }
         }
-
+        
         function handleInput(e) {
             if (e && e.cancelable) e.preventDefault();
 
