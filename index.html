@@ -118,10 +118,7 @@
 
         const baseSize = 100;
         let currentSize = baseSize;
-
-        // ระบบเสียงและ AudioContext (ที่คุณใส่ไว้ล่าสุด)
-        // ... (ยกมาใส่ตรงนี้ได้เลยค่ะ) ...
-
+        
         const getPerfectFullSize = () => {
             return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2));
         };
@@ -141,7 +138,7 @@
 
             // ปุ่มแนวนอน: กว้าง 2.2 เท่า, สูง 0.7 เท่า
             btn.style.width = (currentSize * 2.0) + 'px';
-            btn.style.height = (currentSize * 0.7) + 'px';
+            btn.style.height = (currentSize * 0.6) + 'px';
 
             // ปรับความมน: พอกลบจอไปเกินครึ่ง ให้เริ่มเปลี่ยนเป็นสี่เหลี่ยมเพื่อปิดมุมจอ
             if (currentSize > (maxSize * 0.6)) {
