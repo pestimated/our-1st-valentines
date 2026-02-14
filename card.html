@@ -132,54 +132,62 @@
 <body>
 
     <div class="header-text">
-        <h2>Happy Valentine's Day ❤️</h2>
-        <p>มีของขวัญมาให้เลือก 3 กล่องค่ะ</p>
+        <h2>♡ happy valentine's day ♡</h2>
+        <p>Things I want to give you kub bibi</p>
     </div>
 
     <div class="gift-grid">
         <div class="gift-item" onclick="openModal('wish')" style="animation-delay: 0.1s">
-            <span class="icon">✉️</span>
-            <span class="label">คำอวยพร</span>
+            <span class="icon">🎁</span>
+            <span class="label">GIFT 1</span>
         </div>
         <div class="gift-item" onclick="openModal('flower')" style="animation-delay: 0.3s">
-            <span class="icon">💐</span>
-            <span class="label">ดอกไม้ให้คุณ</span>
+            <span class="icon">🎁</span>
+            <span class="label">GIFT 2</span>
         </div>
         <div class="gift-item" onclick="openModal('voucher')" style="animation-delay: 0.5s">
-            <span class="icon">🎫</span>
-            <span class="label">สิทธิพิเศษ</span>
+            <span class="icon">🎁</span>
+            <span class="label">GIFT 3</span>
         </div>
     </div>
 
     <div id="modalOverlay" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div id="modalBody"></div>
-            <button class="close-btn" onclick="closeModal()">ปิดหน้าต่าง</button>
+            <button class="close-btn" onclick="closeModal()">closed</button>
         </div>
     </div>
 
     <script>
         const content = {
             wish: `
-                <h3 style="color: #fb6f92;">Message for You</h3>
-                <p style="color: #800f2f; line-height: 1.6;">
-                    ถึง เพียงขวัญ...<br><br>
-                    ดีใจที่ได้เจอกันในปีนี้ค่ะ<br>
-                    ขอบคุณที่เป็นความสดใสให้เสมอนะ<br>
-                    ขอให้วันนี้เป็นวันที่น่ารักที่สุดสำหรับคุณค่ะ ✨
+                <h3 style="color: #fb6f92;">LETTER 💌</h3>
+                <p style="color: #800f2f; line-height: 1.6; text-align: right;">
+                    Message to my bibi<br>
+                <p style="color: #800f2f; line-height: 1.6; text-align: left;">
+                    อะแฮ่ม สวัสดีคับคนสวย<br>
+                    ไม่รู้ว่าจะชอบไหม ไอสิ่งนี้ที่ทำให้ 👉🏻👈🏻<br>
+                    ดีใจที่ปีนี้บิบิ๋เข้ามาเป็นวาเลนไทน์ของพี่<br>
+                    อยากให้เป็นแบบนี้ทุก ๆ ปีเลย ᵔ ᵕ ᵔ<br>
+                    ปีหน้าไปเดทกันนะ ขอจองตัวอีกหลายหลายปี<br>
+                    เค้ารักบิบิ๋มากมากเลย ❤️
                 </p>
             `,
             flower: `
-                <h3 style="color: #fb6f92;">Flowers for You</h3>
-                <div style="font-size: 5rem; margin: 15px 0;">🌷</div>
-                <p style="color: #800f2f;">ส่งดอกทิวลิปแทนความหมายว่า<br>"ฉันตกหลุมรักคุณเข้าแล้ว" ค่ะ</p>
+               <h3 style="color: #fb6f92;">FLOWER 🌷</h3>
+                <div style="width: 75%; aspect-ratio: 1/1; margin: 15px auto; overflow: hidden; border-radius: 15px; border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; background-color: #ffffff;">
+                    <img src="flower.jpg" style="width: 85%; height: auto; max-height: 85%; object-fit: contain;" alt="My drawing for you">
+                </div>
+                <p style="color: #800f2f;"><br>วาเลนไทน์ทั้งทีก็ต้องมีดอกไม้สิเนอะ <br>
+                    I wanna give you all of flowers I've got :) <br>
+                </p>
             `,
             voucher: `
-                <h3 style="color: #fb6f92;">Special Gift</h3>
+                <h3 style="color: #fb6f92;">VOUCHER 🎫</h3>
                 <div class="voucher">
                     <div class="voucher-title">Valentine's Gift Voucher</div>
-                    <div class="voucher-value">Dinner Date 1 มื้อ 🍽️</div>
-                    <div class="voucher-title">ร้านไหนก็ได้ที่คุณอยากไป</div>
+                    <div class="voucher-value">ไก่ทอดเอบีซี 🍗</div>
+                    <div class="voucher-title">มูล 500 บาท</div>
                 </div>
                 <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">* ไม่มีวันหมดอายุ จนกว่าเราจะได้ไปกินด้วยกัน</p>
             `
