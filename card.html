@@ -2,128 +2,208 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <meta name="theme-color" content="#ffafcc">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <title>For My Piang-Kwan 💖</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title></title>
     <style>
         :root {
-            --bg-color: #fff0f3;
-            --card-bg: #ffffff;
-            --primary-pink: #ffafcc;
-            --text-main: #594d5b;
-            --heart-red: #fb6f92;
-        }
-
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* ลบแถบสีเวลาแตะปุ่มบน iOS */
+            --bg-color: #ffe5ec;
+            --dark-pink: #fb6f92;
+            --text-color: #800f2f;
         }
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: var(--bg-color);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            font-family: -apple-system, sans-serif;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .header-text {
+            color: var(--text-color);
+            text-align: center;
+            margin: 40px 0 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* --- Gift Grid --- */
+        .gift-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            width: 100%;
+            max-width: 300px;
+            z-index: 10;
+        }
+
+        .gift-item {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(251, 111, 146, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: bounceIn 0.8s ease-out backwards;
+        }
+
+        .gift-item:active { transform: scale(0.9); }
+        .gift-item .icon { font-size: 3.5rem; display: block; margin-bottom: 10px; }
+        .gift-item .label { color: var(--text-color); font-weight: bold; font-size: 0.9rem; }
+
+        /* --- Modal (Pop-up) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(128, 15, 47, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 100;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* ป้องกันการเลื่อนหน้าจอไปมาบนมือถือ */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .container {
-            width: 90%;
-            max-width: 360px;
-            background: var(--card-bg);
+        .modal-content {
+            background: white;
+            padding: 30px;
             border-radius: 30px;
-            padding: 50px 50px;
-            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.15);
+            width: 100%;
+            max-width: 320px;
             text-align: center;
             position: relative;
+            animation: popUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
 
-        .photo-frame {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px;
-            border: 5px solid var(--primary-pink);
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        h1 {
-            color: var(--heart-red);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: var(--text-main);
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .heart-icon {
-            font-size: 40px;
+        .close-btn {
+            margin-top: 20px;
+            background: var(--dark-pink);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
             cursor: pointer;
-            display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .heart-icon:active {
-            transform: scale(1.5);
+        /* --- Voucher Styling --- */
+        .voucher {
+            border: 2px dashed var(--dark-pink);
+            padding: 15px;
+            border-radius: 15px;
+            background: #fffafa;
+            margin-top: 15px;
         }
 
-        /* Animation หัวใจเต้น */
-        .pulse {
-            animation: heartbeat 1.5s infinite;
+        .voucher-title { font-size: 0.8rem; color: #888; text-transform: uppercase; }
+        .voucher-value { font-size: 1.2rem; color: var(--dark-pink); font-weight: bold; margin: 5px 0; }
+
+        /* --- Animations --- */
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.1); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
+        @keyframes popUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .floating-heart {
+            position: fixed; color: rgba(251, 111, 146, 0.3);
+            pointer-events: none; z-index: -1;
+            animation: moveUp 5s linear infinite;
+        }
+        @keyframes moveUp {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="photo-frame">
-            <img src="your-photo.jpg" alt="Memory">
+    <div class="header-text">
+        <h2>Happy Valentine's Day ❤️</h2>
+        <p>มีของขวัญมาให้เลือก 3 กล่องค่ะ</p>
+    </div>
+
+    <div class="gift-grid">
+        <div class="gift-item" onclick="openModal('wish')" style="animation-delay: 0.1s">
+            <span class="icon">✉️</span>
+            <span class="label">คำอวยพร</span>
         </div>
-        
-        <div class="heart-icon pulse">❤️</div>
-        
-        <h1>Happy Valentine's Day</h1>
-        <p>ถึง... คุณเพียงขวัญ ✨</p>
-        <p>วันนี้อยากบอกว่าขอบคุณที่อยู่ด้วยกันนะ<br>
-           ขอให้ทุกวันของเราสดใสเหมือนวันนี้เลย!</p>
-           
-        <button id="secretBtn" style="margin-top: 20px; background: none; border: 1px solid var(--primary-pink); color: var(--heart-red); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem;">
-            Click for a surprise
-        </button>
+        <div class="gift-item" onclick="openModal('flower')" style="animation-delay: 0.3s">
+            <span class="icon">💐</span>
+            <span class="label">ดอกไม้ให้คุณ</span>
+        </div>
+        <div class="gift-item" onclick="openModal('voucher')" style="animation-delay: 0.5s">
+            <span class="icon">🎫</span>
+            <span class="label">สิทธิพิเศษ</span>
+        </div>
+    </div>
+
+    <div id="modalOverlay" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div id="modalBody"></div>
+            <button class="close-btn" onclick="closeModal()">ปิดหน้าต่าง</button>
+        </div>
     </div>
 
     <script>
-        // ใส่ลูกเล่นนิดหน่อยตามสไตล์ ComSci
-        document.getElementById('secretBtn').addEventListener('click', function() {
-            alert('รัก Piang-Kwan ที่สุดในโลกเลยค่ะ! ❤️');
-            console.log("Success: Love transmitted to Piang-Kwan's heart.");
-        });
+        const content = {
+            wish: `
+                <h3 style="color: #fb6f92;">Message for You</h3>
+                <p style="color: #800f2f; line-height: 1.6;">
+                    ถึง เพียงขวัญ...<br><br>
+                    ดีใจที่ได้เจอกันในปีนี้ค่ะ<br>
+                    ขอบคุณที่เป็นความสดใสให้เสมอนะ<br>
+                    ขอให้วันนี้เป็นวันที่น่ารักที่สุดสำหรับคุณค่ะ ✨
+                </p>
+            `,
+            flower: `
+                <h3 style="color: #fb6f92;">Flowers for You</h3>
+                <div style="font-size: 5rem; margin: 15px 0;">🌷</div>
+                <p style="color: #800f2f;">ส่งดอกทิวลิปแทนความหมายว่า<br>"ฉันตกหลุมรักคุณเข้าแล้ว" ค่ะ</p>
+            `,
+            voucher: `
+                <h3 style="color: #fb6f92;">Special Gift</h3>
+                <div class="voucher">
+                    <div class="voucher-title">Valentine's Gift Voucher</div>
+                    <div class="voucher-value">Dinner Date 1 มื้อ 🍽️</div>
+                    <div class="voucher-title">ร้านไหนก็ได้ที่คุณอยากไป</div>
+                </div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">* ไม่มีวันหมดอายุ จนกว่าเราจะได้ไปกินด้วยกัน</p>
+            `
+        };
+
+        function openModal(type) {
+            document.getElementById('modalBody').innerHTML = content[type];
+            document.getElementById('modalOverlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        // หัวใจลอยๆ
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 600);
     </script>
 </body>
 </html>

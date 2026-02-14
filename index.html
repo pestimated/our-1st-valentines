@@ -3,11 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <title>A surprise for you ✨</title>
-    <meta property="og:title" content="Open me!">
-    <meta property="og:description" content="I have a special message for you.">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <title></title>
+    <meta property="og:title" content="open me please">
+    <meta property="og:description" content="">
 
     <style>
         body {
@@ -17,7 +18,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100dvh; /* ใช้ dvh เพื่อความเป๊ะบน iPhone */
+            height: 100dvh;
+            /* ใช้ dvh เพื่อความเป๊ะบน iPhone */
             overflow: hidden;
             font-family: -apple-system, sans-serif;
             position: relative;
@@ -25,7 +27,7 @@
 
         .instruction {
             position: absolute;
-            bottom: 20%; 
+            bottom: 20%;
             left: 0;
             right: 0;
             text-align: center;
@@ -41,7 +43,7 @@
         }
 
         #percentText {
-            font-size: 1.0rem; 
+            font-size: 1.0rem;
             font-weight: 700;
             display: block;
             margin-bottom: 2px;
@@ -74,9 +76,17 @@
         }
 
         @keyframes haptic-tap {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(0.92); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(0.92);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
 
         .btn-text {
@@ -105,20 +115,14 @@
         const baseSize = 100;
         let currentSize = baseSize;
 
-        // แก้ไข: ใช้เสียง Pop ที่ยาวขึ้นและชัดขึ้น (Base64 อันใหม่)
-        const popSound = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAD//wEAAAA=');
-        // ถ้าอันบนเบาไป ลองใช้เสียง Beep สั้นๆ อันนี้ค่ะ
-        const altPop = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YT9vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT18=');
-        
-        popSound.volume = 1.0; 
-        
+        // --- ลอจิกการคำนวณ ---
         const getPerfectFullSize = () => {
             return Math.sqrt(Math.pow(window.innerWidth, 2) + Math.pow(window.innerHeight, 2));
         };
-        
+
         let maxSize = getPerfectFullSize();
-        const growAmount = (maxSize - baseSize) / 15; 
-        const shrinkAmount = 1.2; 
+        const growAmount = (maxSize - baseSize) / 15;
+        const shrinkAmount = 1.2;
 
         function updateDisplay() {
             if (currentSize < baseSize) currentSize = baseSize;
@@ -128,7 +132,7 @@
             let percent = Math.floor(((currentSize - baseSize) / (maxSize - baseSize)) * 100);
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
-            
+
             percentDisplay.innerText = `percent of you loving me: ${percent}%`;
 
             if (percent >= 100) {
@@ -138,10 +142,6 @@
 
         function handleInput(e) {
             if (e && e.cancelable) e.preventDefault();
-
-            // เล่นเสียง
-            popSound.currentTime = 0;
-            popSound.play().catch(err => console.log("Audio Error:", err));
 
             currentSize += growAmount;
             updateDisplay();
@@ -158,12 +158,14 @@
             }
         }, 16);
 
+        // รับมือได้ทุกอีเวนต์
         btn.addEventListener('touchstart', handleInput, { passive: false });
         btn.addEventListener('mousedown', (e) => { if (e.button === 0) handleInput(e); });
-        
+
         window.addEventListener('resize', () => {
             maxSize = getPerfectFullSize();
         });
     </script>
 </body>
+
 </html>
