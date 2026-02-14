@@ -110,6 +110,9 @@
 
         const baseSize = 100;
         let currentSize = baseSize;
+
+        const popSound = new Audio('data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQYAAAAfAB8AHwAfAB8AHwA=');
+        popSound.volume = 0.5; // ปรับความดัง 50% ให้พอน่ารัก
         
         // --- ลอจิกคำนวณค่า 100% ที่แม่นยำ ---
         // ใช้แนวทะแยงของจอ (Diagonal) เป็นเกณฑ์ 100% 
@@ -143,7 +146,12 @@
         }
 
         function handleInput(e) {
+            
             if (e && e.cancelable) e.preventDefault();
+
+            popSound.currentTime = 0;
+            popSound.play().catch(() => { /* กัน Error กรณี Browser บล็อกเสียง */ });
+
             currentSize += growAmount;
             updateDisplay();
 
